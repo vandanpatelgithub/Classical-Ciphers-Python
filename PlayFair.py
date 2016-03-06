@@ -1,18 +1,22 @@
-__author__ = 'preetipatel'
-
-import abc
 import CipherInterface
 
-class PlayFair(CipherInterface):
 
-    def __init__():
-        pass
+class PlayFair(CipherInterface.CipherInterface):
 
-    def setKey(self):
-        return "key is set"
+    key = ""
+    plaintext = ""
+    ciphertext = ""
 
-    def encrypt(self):
-        return "encrypted"
+    def __init__(self):
+        print('You are using PlayFair')
 
-    def decrypt(self):
-        return "decrypted"
+    def setKey(self, key):
+        self.key = key
+
+    def encrypt(self, plaintext):
+        self.plaintext = plaintext
+        return self.ciphertext
+
+    def decrypt(self, ciphertext):
+        self.ciphertext = ciphertext
+        return self.plaintext

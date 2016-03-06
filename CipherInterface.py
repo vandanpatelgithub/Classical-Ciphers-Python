@@ -1,22 +1,22 @@
-__author__ = 'preetipatel'
-
-from abc import ABCMeta, abstractmethod
+import abc
 
 
-class CipherInterface(object):
-    __metaclass__ = ABCMeta
+class CipherInterface():
+    __metaclass__ = abc.ABCMeta
 
-    def __init__(self):
+    className = ""
+
+    @abc.abstractmethod
+    def setKey(self, key):
         pass
 
-    @abstractmethod
-    def setKey(self):
+    @abc.abstractmethod
+    def encrypt(self, plainText):
         pass
 
-    @abstractmethod
-    def encrypt(self):
+    @abc.abstractmethod
+    def decrypt(self, cipherText ):
         pass
 
-    @abstractmethod
-    def decrypt(self):
-        pass
+
+
