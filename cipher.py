@@ -41,12 +41,10 @@ else:
 
     elif activity == "ENC":
         if cipherName == 'PLF':
-
             cipher = PlayFair()
+            cipher.setKey(cipherKey)
             text = fileReader.read()
-            fileWriter.write(text)
+            cipherText = cipher.encrypt(text)
+            fileWriter.write(cipherText)
             fileReader.close()
             fileWriter.close()
-
-
-
