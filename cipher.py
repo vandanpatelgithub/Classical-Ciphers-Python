@@ -30,6 +30,8 @@ else:
 
     fileWriter = open(outputFile, 'w')
 
+    cipherKey = cipherKey.upper()
+
     if not (cipherName in ciphers.keys()):
         print("Valid Ciphers are : ")
         for key, value in ciphers.items():
