@@ -1,5 +1,6 @@
 import sys
 from PlayFair import PlayFair
+from RowTransposition import RowTransposition
 
 ciphers = {'PLF': 'Playfair', 'RTS': 'Row Transposition', 'RFC': 'Railfence', 'VIG': 'Vigenre', 'CES': 'Carsar',
            'MAC': 'Monoalphabetic Cipher'}
@@ -40,6 +41,15 @@ else:
     elif activity == "ENC":
         if cipherName == 'PLF':
             cipher = PlayFair()
+            cipher.setKey(cipherKey)
+            text = fileReader.read()
+            cipherText = cipher.encrypt(text)
+            fileWriter.write(cipherText)
+            fileReader.close()
+            fileWriter.close()
+
+        if cipherName == 'RTS':
+            cipher = RowTransposition()
             cipher.setKey(cipherKey)
             text = fileReader.read()
             cipherText = cipher.encrypt(text)
