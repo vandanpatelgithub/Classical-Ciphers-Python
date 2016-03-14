@@ -37,10 +37,6 @@ else:
         for key, value in ciphers.items():
             print(key, value)
 
-    elif activity == "DEC":
-        if not encryption:
-            print("You have to encrypt before you can decrypt")
-
     elif activity == "ENC":
         if cipherName == 'PLF':
             cipher = PlayFair()
@@ -48,5 +44,15 @@ else:
             text = fileReader.read()
             cipherText = cipher.encrypt(text)
             fileWriter.write(cipherText)
+            fileReader.close()
+            fileWriter.close()
+
+    elif activity == "DEC":
+        if cipherName == "PLF":
+            cipher = PlayFair()
+            cipher.setKey(cipherKey)
+            text = fileReader.read()
+            plainText = cipher.decrypt(text)
+            fileWriter.write(plainText)
             fileReader.close()
             fileWriter.close()
