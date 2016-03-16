@@ -2,6 +2,7 @@ import CipherInterface
 
 import re
 
+
 class Caesar(CipherInterface.CipherInterface):
 
     key = ""
