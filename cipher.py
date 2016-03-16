@@ -1,8 +1,9 @@
 import sys
 from PlayFair import PlayFair
 from RowTransposition import RowTransposition
+from Caesar import Caesar
 
-ciphers = {'PLF': 'Playfair', 'RTS': 'Row Transposition', 'RFC': 'Railfence', 'VIG': 'Vigenre', 'CES': 'Carsar',
+ciphers = {'PLF': 'Playfair', 'RTS': 'Row Transposition', 'RFC': 'Railfence', 'VIG': 'Vigenre', 'CES': 'Caesar',
            'MAC': 'Monoalphabetic Cipher'}
 
 activities = {'ENC', 'DEC'}
@@ -57,9 +58,36 @@ else:
             fileReader.close()
             fileWriter.close()
 
+        if cipherName == 'CES':
+            cipher = Caesar()
+            cipher.setKey(cipherKey)
+            text = fileReader.read()
+            cipherText = cipher.encrypt(text)
+            fileWriter.write(cipherText)
+            fileReader.close()
+            fileWriter.close()
+
     elif activity == "DEC":
         if cipherName == "PLF":
             cipher = PlayFair()
+            cipher.setKey(cipherKey)
+            text = fileReader.read()
+            plainText = cipher.decrypt(text)
+            fileWriter.write(plainText)
+            fileReader.close()
+            fileWriter.close()
+
+        if cipherName == 'RTS':
+            cipher = RowTransposition()
+            cipher.setKey(cipherKey)
+            text = fileReader.read()
+            plainText = cipher.decrypt(text)
+            fileWriter.write(plainText)
+            fileReader.close()
+            fileWriter.close()
+
+        if cipherName == 'CES':
+            cipher = Caesar()
             cipher.setKey(cipherKey)
             text = fileReader.read()
             plainText = cipher.decrypt(text)

@@ -15,8 +15,5 @@ class CipherInterface():
         pass
 
     @abc.abstractmethod
-    def decrypt(self, cipherText ):
+    def decrypt(self, cipherText):
         pass
-
-
-
