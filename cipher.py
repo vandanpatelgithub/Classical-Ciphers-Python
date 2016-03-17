@@ -3,6 +3,7 @@ from PlayFair import PlayFair
 from RowTransposition import RowTransposition
 from Caesar import Caesar
 from RailFence import RailFence
+from Vigenre import Vigenre
 
 ciphers = {'PLF': 'Playfair', 'RTS': 'Row Transposition', 'RFC': 'Railfence', 'VIG': 'Vigenre', 'CES': 'Caesar',
            'MAC': 'Monoalphabetic Cipher'}
@@ -77,6 +78,15 @@ else:
             fileReader.close()
             fileWriter.close()
 
+        if cipherName == 'VIG':
+            cipher = Vigenre()
+            cipher.setKey(cipherKey)
+            text = fileReader.read()
+            cipherText = cipher.encrypt(text)
+            fileWriter.write(cipherText)
+            fileReader.close()
+            fileWriter.close()
+
     elif activity == "DEC":
         if cipherName == "PLF":
             cipher = PlayFair()
@@ -107,6 +117,15 @@ else:
 
         if cipherName == 'RFC':
             cipher = RailFence()
+            cipher.setKey(cipherKey)
+            text = fileReader.read()
+            plainText = cipher.decrypt(text)
+            fileWriter.write(plainText)
+            fileReader.close()
+            fileWriter.close()
+
+        if cipherName == 'VIG':
+            cipher = Vigenre()
             cipher.setKey(cipherKey)
             text = fileReader.read()
             plainText = cipher.decrypt(text)
