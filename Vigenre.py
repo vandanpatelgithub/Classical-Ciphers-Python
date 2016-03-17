@@ -2,7 +2,6 @@ import CipherInterface
 
 import re
 
-import sys
 
 class Vigenre(CipherInterface.CipherInterface):
 

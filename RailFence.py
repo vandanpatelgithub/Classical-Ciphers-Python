@@ -20,8 +20,6 @@ class RailFence(CipherInterface.CipherInterface):
 
         self.plaintext = self.prepareText(plainText)
 
-        plaintext_length = len(self.plaintext)
-
         depth = int(self.key)
 
         depth_list = [self.plaintext[i:i+depth] for i in range(0, len(self.plaintext), depth)]
