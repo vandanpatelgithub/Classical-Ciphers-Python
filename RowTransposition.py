@@ -67,19 +67,11 @@ class RowTransposition(CipherInterface.CipherInterface):
 
             ciphertext_length = len(self.ciphertext)
 
-            print(ciphertext_length)
-
             key_length = len(self.key)
-
-            print(key_length)
 
             rows = ciphertext_length / key_length
 
-            print(rows)
-
             ciphertext_list = [self.ciphertext[i:i + rows] for i in range(0, len(self.ciphertext), rows)]
-
-            print(ciphertext_list)
 
             plaintext_list = []
 
@@ -99,8 +91,6 @@ class RowTransposition(CipherInterface.CipherInterface):
                 for lists in plaintext_list:
                     self.plaintext += lists[row_counter]
                 row_counter += 1
-
-            print("Plaintext is : " + self.plaintext)
 
             return self.plaintext
 

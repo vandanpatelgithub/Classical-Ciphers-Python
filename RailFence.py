@@ -41,8 +41,6 @@ class RailFence(CipherInterface.CipherInterface):
 
             depth_list = [self.plaintext[i:i+depth] for i in range(0, len(self.plaintext), depth)]
 
-            print(depth_list)
-
             depth_counter = 0
 
             while depth_counter < depth:
@@ -68,8 +66,6 @@ class RailFence(CipherInterface.CipherInterface):
             ciphertext_list = []
 
             self.ciphertext = cipherText
-
-            print(self.ciphertext)
 
             ciphertext_length = len(self.ciphertext)
 
@@ -101,8 +97,6 @@ class RailFence(CipherInterface.CipherInterface):
                     if length_counter < length:
                         self.plaintext += lists[length_counter]
                 length_counter += 1
-
-            print(self.plaintext)
 
             return self.plaintext
 

@@ -32,11 +32,7 @@ class Vigenre(CipherInterface.CipherInterface):
 
         plaintext_length = len(plaintext)
 
-        print("Plaintext length : " + str(plaintext_length))
-
         key_length = int(len(self.key))
-
-        print("Key Length : " + str(key_length))
 
         if key_length < plaintext_length:
 
@@ -81,8 +77,6 @@ class Vigenre(CipherInterface.CipherInterface):
 
             self.key = self.prepareKeyText(self.plaintext)
 
-            print(self.key)
-
             for e in range(int(len(self.key))):
                 cipherindex_list.append('')
 
@@ -96,7 +90,6 @@ class Vigenre(CipherInterface.CipherInterface):
 
             for index in cipherindex_list:
                 self.ciphertext += alpabetic[index]
-            print(self.ciphertext)
 
             return self.ciphertext
 
@@ -120,8 +113,6 @@ class Vigenre(CipherInterface.CipherInterface):
             self.ciphertext = self.prepareText(cipherText)
 
             self.key = self.prepareKeyText(self.ciphertext)
-
-            print("Key is : " + self.key)
 
             for e in range(int(len(self.key))):
                 plaintextindex_list.append('')

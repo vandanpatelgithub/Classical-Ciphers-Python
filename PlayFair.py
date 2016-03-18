@@ -109,8 +109,6 @@ class PlayFair(CipherInterface.CipherInterface):
 
         keyMatrix = self.setKey(self.key)
 
-        print(keyMatrix)
-
         indices = self.buildIndexArray(keyMatrix)
 
         for pair in diagraphs:
@@ -131,8 +129,6 @@ class PlayFair(CipherInterface.CipherInterface):
                 encrypted_first_element = keyMatrix[row][newcolumn_firstelement]
                 encrypted_second_element = keyMatrix[row][newcolumn_secondelement]
 
-                print("They are in the same row")
-                print("Encrypted Output : " + encrypted_first_element + encrypted_second_element)
                 self.ciphertext += encrypted_first_element + encrypted_second_element
 
             elif(zipped[1] == zipped[3]):
@@ -143,15 +139,12 @@ class PlayFair(CipherInterface.CipherInterface):
                 encrypted_first_element = keyMatrix[newrow_firstelement][column]
                 encrypted_second_element = keyMatrix[newrow_secondelement][column]
 
-                print("They are in the same columns!")
-                print("Encrypted Output : " + encrypted_first_element + encrypted_second_element)
                 self.ciphertext += encrypted_first_element + encrypted_second_element
 
             else:
                 encrypted_first_element = keyMatrix[zipped[0]][zipped[3]]
                 encrypted_second_element = keyMatrix[zipped[2]][zipped[1]]
-                print("They are not in same rows or columns!")
-                print("Encrypted Output : " + encrypted_first_element + encrypted_second_element)
+
                 self.ciphertext += encrypted_first_element + encrypted_second_element
 
         return self.ciphertext
@@ -163,8 +156,6 @@ class PlayFair(CipherInterface.CipherInterface):
         diagraphs = self.buildDiagraph(self.ciphertext)
 
         keyMatrix = self.setKey(self.key)
-
-        print(keyMatrix)
 
         indices = self.buildIndexArray(keyMatrix)
 
@@ -193,7 +184,6 @@ class PlayFair(CipherInterface.CipherInterface):
                 decrypted_first_element = keyMatrix[row][newcolumn_firstelement]
                 decrypted_second_element = keyMatrix[row][newcolumn_secondelement]
 
-                print("Decrypted Output : " + decrypted_first_element + decrypted_second_element)
                 self.plaintext += decrypted_first_element + decrypted_second_element
 
             elif(zipped[1] == zipped[3]):
@@ -211,15 +201,13 @@ class PlayFair(CipherInterface.CipherInterface):
                 decrypted_first_element = keyMatrix[newrow_firstelement][column]
                 decrypted_second_element = keyMatrix[newrow_secondelement][column]
 
-                print("Decrypted Output : " + decrypted_first_element + decrypted_second_element)
                 self.plaintext += decrypted_first_element + decrypted_second_element
 
             else:
 
                 encrypted_first_element = keyMatrix[zipped[0]][zipped[3]]
                 encrypted_second_element = keyMatrix[zipped[2]][zipped[1]]
-                print("They are not in same rows or columns!")
-                print("Encrypted Output : " + encrypted_first_element + encrypted_second_element)
+
                 self.plaintext += encrypted_first_element + encrypted_second_element
 
         return self.plaintext

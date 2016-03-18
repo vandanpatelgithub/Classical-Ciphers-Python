@@ -4,6 +4,7 @@ import re
 
 import sys
 
+
 class Caesar(CipherInterface.CipherInterface):
 
     key = ""

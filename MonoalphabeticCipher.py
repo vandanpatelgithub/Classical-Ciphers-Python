@@ -46,15 +46,9 @@ class MonoalphabeticCipher(CipherInterface.CipherInterface):
 
             alphabetic = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-            print(self.key)
-
-            print(self.plaintext)
-
             for letter in self.plaintext:
                 index = alphabetic.index(letter)
                 self.ciphertext += self.key[index]
-
-            print(self.ciphertext)
 
             return self.ciphertext
 
@@ -75,7 +69,6 @@ class MonoalphabeticCipher(CipherInterface.CipherInterface):
                 index = self.key.index(letter)
                 self.plaintext += alphabetic[index]
 
-            print(self.plaintext)
             return self.plaintext
 
         else:
