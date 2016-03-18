@@ -2,6 +2,8 @@ import CipherInterface
 
 import re
 
+import sys
+
 
 class RailFence(CipherInterface.CipherInterface):
 
@@ -9,78 +11,105 @@ class RailFence(CipherInterface.CipherInterface):
     plaintext = ""
     ciphertext = ""
     start, end = 0, 0
+    isKey = True
 
     def __init__(self):
         print("You are using RailFence")
 
     def setKey(self, key):
+
+        if not self.RepresentsInt(key):
+            print("Key Has To Be Integer")
+            self.isKey = False
+            sys.exit()
+        elif int(key) < 0:
+            print("Key Has to Be Positive Integer")
+            self.isKey = False
+            sys.exit()
+
         self.key = key
+
+        return self.isKey
 
     def encrypt(self, plainText):
 
-        self.plaintext = self.prepareText(plainText)
+        if self.isKey:
 
-        depth = int(self.key)
+            self.plaintext = self.prepareText(plainText)
 
-        depth_list = [self.plaintext[i:i+depth] for i in range(0, len(self.plaintext), depth)]
+            depth = int(self.key)
 
-        print(depth_list)
+            depth_list = [self.plaintext[i:i+depth] for i in range(0, len(self.plaintext), depth)]
 
-        depth_counter = 0
+            print(depth_list)
 
-        while depth_counter < depth:
-            for lists in depth_list:
-                    length = len(lists)
-                    if depth_counter < length:
-                        self.ciphertext += lists[depth_counter]
-            depth_counter += 1
+            depth_counter = 0
 
-        return self.ciphertext
+            while depth_counter < depth:
+                for lists in depth_list:
+                        length = len(lists)
+                        if depth_counter < length:
+                            self.ciphertext += lists[depth_counter]
+                depth_counter += 1
+
+            return self.ciphertext
+
+        else:
+
+            print("Something is wrong with the key!")
+            sys.exit()
 
     def decrypt(self, cipherText):
 
-        counter, length_counter = 0, 0
+        if self.isKey:
 
-        ciphertext_list = []
+            counter, length_counter = 0, 0
 
-        self.ciphertext = cipherText
+            ciphertext_list = []
 
-        print(self.ciphertext)
+            self.ciphertext = cipherText
 
-        ciphertext_length = len(self.ciphertext)
+            print(self.ciphertext)
 
-        depth = int(self.key)
+            ciphertext_length = len(self.ciphertext)
 
-        rows = ciphertext_length / depth
+            depth = int(self.key)
 
-        remaining_letters = ciphertext_length % depth
+            rows = ciphertext_length / depth
 
-        while counter < depth:
+            remaining_letters = ciphertext_length % depth
 
-            if remaining_letters > 0:
-                self.end += rows + 1
-                ciphertext_list.append(self.ciphertext[self.start:self.end])
-                remaining_letters -= 1
-                self.start = self.end
-                counter += 1
-            else:
-                self.end += rows
-                ciphertext_list.append(self.ciphertext[self.start:self.end])
-                self.start = self.end
-                counter += 1
+            while counter < depth:
 
-        max_length = len(ciphertext_list[0])
+                if remaining_letters > 0:
+                    self.end += rows + 1
+                    ciphertext_list.append(self.ciphertext[self.start:self.end])
+                    remaining_letters -= 1
+                    self.start = self.end
+                    counter += 1
+                else:
+                    self.end += rows
+                    ciphertext_list.append(self.ciphertext[self.start:self.end])
+                    self.start = self.end
+                    counter += 1
 
-        while length_counter < max_length:
-            for lists in ciphertext_list:
-                length = len(lists)
-                if length_counter < length:
-                    self.plaintext += lists[length_counter]
-            length_counter += 1
+            max_length = len(ciphertext_list[0])
 
-        print(self.plaintext)
+            while length_counter < max_length:
+                for lists in ciphertext_list:
+                    length = len(lists)
+                    if length_counter < length:
+                        self.plaintext += lists[length_counter]
+                length_counter += 1
 
-        return self.plaintext
+            print(self.plaintext)
+
+            return self.plaintext
+
+        else:
+
+            print("Something is wrong with the key!")
+            sys.exit()
 
     def prepareText(self, plaintext):
 
@@ -89,3 +118,10 @@ class RailFence(CipherInterface.CipherInterface):
         plaintext = re.sub(r'\W+', '', plaintext)
 
         return plaintext
+
+    def RepresentsInt(self, s):
+        try:
+            int(s)
+            return True
+        except ValueError:
+            return False

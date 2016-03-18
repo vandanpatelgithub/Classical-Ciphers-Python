@@ -2,18 +2,29 @@ import CipherInterface
 
 import re
 
+import sys
+
 
 class Vigenre(CipherInterface.CipherInterface):
 
     key = ""
     plaintext = ""
     ciphertext = ""
+    isKey = True
 
     def __init__(self):
         print("You are using Vigenre")
 
     def setKey(self, key):
+
+        if not key.isalpha():
+            print("Key can only contain alphabets")
+            self.isKey = False
+            sys.exit()
+
         self.key = key
+
+        return self.isKey
 
     def prepareKeyText(self, plaintext):
 
@@ -56,70 +67,84 @@ class Vigenre(CipherInterface.CipherInterface):
 
     def encrypt(self, plainText):
 
-        keyindex_list = []
+        if self.isKey:
 
-        plaintextindex_list = []
+            keyindex_list = []
 
-        cipherindex_list = []
+            plaintextindex_list = []
 
-        alpabetic = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            cipherindex_list = []
 
-        self.plaintext = self.prepareText(plainText)
+            alpabetic = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-        self.key = self.prepareKeyText(self.plaintext)
+            self.plaintext = self.prepareText(plainText)
 
-        print(self.key)
+            self.key = self.prepareKeyText(self.plaintext)
 
-        for e in range(int(len(self.key))):
-            cipherindex_list.append('')
+            print(self.key)
 
-        for key in self.key:
-            keyindex_list.append(alpabetic.index(key))
+            for e in range(int(len(self.key))):
+                cipherindex_list.append('')
 
-        for text in self.plaintext:
-            plaintextindex_list.append(alpabetic.index(text))
+            for key in self.key:
+                keyindex_list.append(alpabetic.index(key))
 
-        cipherindex_list = [(a+b)%26 for a,b in zip(keyindex_list, plaintextindex_list)]
+            for text in self.plaintext:
+                plaintextindex_list.append(alpabetic.index(text))
 
-        for index in cipherindex_list:
-            self.ciphertext += alpabetic[index]
-        print(self.ciphertext)
+            cipherindex_list = [(a+b)%26 for a,b in zip(keyindex_list, plaintextindex_list)]
 
-        return self.ciphertext
+            for index in cipherindex_list:
+                self.ciphertext += alpabetic[index]
+            print(self.ciphertext)
+
+            return self.ciphertext
+
+        else:
+
+            print("Something is wrong with the key !")
+            sys.exit()
 
     def decrypt(self, cipherText):
 
-        keyindex_list = []
+        if self.isKey:
 
-        ciphertextindex_list = []
+            keyindex_list = []
 
-        plaintextindex_list = []
+            ciphertextindex_list = []
 
-        alphabetic = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            plaintextindex_list = []
 
-        self.ciphertext = cipherText
+            alphabetic = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-        self.key = self.prepareKeyText(self.ciphertext)
+            self.ciphertext = self.prepareText(cipherText)
 
-        print("Key is : " + self.key)
+            self.key = self.prepareKeyText(self.ciphertext)
 
-        for e in range(int(len(self.key))):
-            plaintextindex_list.append('')
+            print("Key is : " + self.key)
 
-        for key in self.key:
-            keyindex_list.append(alphabetic.index(key))
+            for e in range(int(len(self.key))):
+                plaintextindex_list.append('')
 
-        for text in self.ciphertext:
-            ciphertextindex_list.append(alphabetic.index(text))
+            for key in self.key:
+                keyindex_list.append(alphabetic.index(key))
 
-        plaintextindex_list = [(a-b)%26 for a,b in zip(ciphertextindex_list, keyindex_list)]
+            for text in self.ciphertext:
+                ciphertextindex_list.append(alphabetic.index(text))
 
-        for index in plaintextindex_list:
-            if index < 0:
-                index += 26
-            self.plaintext += alphabetic[index]
+            plaintextindex_list = [(a-b)%26 for a,b in zip(ciphertextindex_list, keyindex_list)]
 
-        return self.plaintext
+            for index in plaintextindex_list:
+                if index < 0:
+                    index += 26
+                self.plaintext += alphabetic[index]
+
+            return self.plaintext
+
+        else:
+
+            print("Something is wrong with the key !")
+            sys.exit()
 
     def prepareText(self, plaintext):
 

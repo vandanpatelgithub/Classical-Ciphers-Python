@@ -12,6 +12,7 @@ class MonoalphabeticCipher(CipherInterface.CipherInterface):
     key = ""
     plaintext = ""
     ciphertext = ""
+    isKey = True
 
     def __init__(self):
         print("You are using Monoalphabetic Cipher")
@@ -20,44 +21,67 @@ class MonoalphabeticCipher(CipherInterface.CipherInterface):
 
         newkey = "".join(OrderedDict.fromkeys(key))
 
-        self.key = newkey
+        if not newkey.isalpha():
+            print("Key can only contain alphabets")
+            self.isKey = False
+            sys.exit()
 
-        key_length = int(len(self.key))
+        key_length = int(len(newkey))
 
         if key_length is not 26:
+            print("Key length is : " + str(key_length))
             print("Key has to be exactly 26 unique characters")
+            self.isKey = False
             sys.exit()
+
+        self.key = newkey
+
+        return self.isKey
 
     def encrypt(self, plainText):
 
-        self.plaintext = self.prepareText(plainText)
+        if self.isKey:
 
-        alphabetic = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            self.plaintext = self.prepareText(plainText)
 
-        print(self.key)
+            alphabetic = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-        print(self.plaintext)
+            print(self.key)
 
-        for letter in self.plaintext:
-            index = alphabetic.index(letter)
-            self.ciphertext += self.key[index]
+            print(self.plaintext)
 
-        print(self.ciphertext)
+            for letter in self.plaintext:
+                index = alphabetic.index(letter)
+                self.ciphertext += self.key[index]
 
-        return self.ciphertext
+            print(self.ciphertext)
+
+            return self.ciphertext
+
+        else:
+
+            print("Something is wrong with Key!")
+            sys.exit()
 
     def decrypt(self, cipherText):
 
-        self.ciphertext = self.prepareText(cipherText)
+        if self.isKey:
 
-        alphabetic = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+            self.ciphertext = self.prepareText(cipherText)
 
-        for letter in self.ciphertext:
-            index = self.key.index(letter)
-            self.plaintext += alphabetic[index]
+            alphabetic = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
 
-        print(self.plaintext)
-        return self.plaintext
+            for letter in self.ciphertext:
+                index = self.key.index(letter)
+                self.plaintext += alphabetic[index]
+
+            print(self.plaintext)
+            return self.plaintext
+
+        else:
+
+            print("Something is wrong with Key!")
+            sys.exit()
 
     def prepareText(self, plaintext):
 
