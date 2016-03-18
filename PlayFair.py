@@ -2,6 +2,8 @@ import CipherInterface
 
 import re
 
+import sys
+
 
 class PlayFair(CipherInterface.CipherInterface):
     key = ""
@@ -10,11 +12,18 @@ class PlayFair(CipherInterface.CipherInterface):
     row = ""
     column = ""
     diagraphs = []
+    isKey = True
 
     def __init__(self):
         print('You are using PlayFair')
 
     def setKey(self, key):
+
+        if not key.isalpha():
+            print("Key can only contain alphabetic letters")
+            self.isKey = False
+            sys.exit()
+
         self.key = key
 
         keyList = []
